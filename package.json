@@ -45,7 +45,8 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.3.3",
     "prettier": "^2.5.1",
-    "prop-types": "^15.8.1"
+    "prop-types": "^15.8.1",
+    "react-router-dom": "^6.2.1"
   },
   "lint-staged": {
     "*.{js,jsx}": "eslint --cache --fix",
