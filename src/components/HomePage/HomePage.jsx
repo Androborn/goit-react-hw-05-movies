@@ -1,11 +1,26 @@
-export const HomePage = ({ fetchedMovies }) => {
+import { Link } from 'react-router-dom';
+
+import { nanoid } from 'nanoid';
+
+import { Loader } from '../../vendors';
+import { useFetchMovies } from '../../hooks';
+
+export function HomePage() {
+  const fetchTrendingMovies = '/trending/movie/day';
+
+  const { fetchedMovies, loading, error } = useFetchMovies(fetchTrendingMovies);
+
   return (
-    <div></div>
-    // <ul>
-    //   {fetchedMovies.map(movie => (
-    //     <li>{movie.title}</li>
-    //   ))}
-    //   ;
-    // </ul>
+    <>
+      <ul>
+        {fetchedMovies &&
+          fetchedMovies.results.map(movie => (
+            <li key={nanoid()}>
+              <Link to={`movies/${movie.id}`}>{movie.title}</Link>
+            </li>
+          ))}
+      </ul>
+      {loading && <Loader />}
+    </>
   );
-};
+}

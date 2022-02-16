@@ -1,5 +1,4 @@
-export { Navigation } from './Navigation/Navigation.jsx';
-export { PageNotFoundView } from './PageNotFoundView/PageNotFoundView.jsx';
+export { Layout } from './Layout/Layout.jsx';
 export { HomePage } from './HomePage/HomePage.jsx';
 export { SearchForm } from './MoviesPage/SearchForm/SearchForm.jsx';
 export { MoviesPage } from './MoviesPage/MoviesPage.jsx';

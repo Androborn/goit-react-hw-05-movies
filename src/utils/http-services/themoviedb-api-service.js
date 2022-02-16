@@ -4,7 +4,7 @@ const API_KEY = 'f979c5d182d240e48ce15515a9f4d973';
 const AUTH_TYPE = '3';
 const DEFAULT_LANGUAGE = 'en-US';
 const ADULT_CONTENT = false;
-const APPENDED_MOVIE_DETAILS = 'credits, reviews';
+const APPENDED_MOVIE_DETAILS = 'credits,reviews';
 
 export const themoviedbApiService = (fetchParameter, searchQuery) => {
   axios.defaults.baseURL = BASE_URL;
