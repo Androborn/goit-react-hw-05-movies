@@ -7,12 +7,13 @@ export const useFetchMovies = (fetchParameter, searchQuery) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // const searchedMovies = '/search/movie'; // +++searchQuery
-
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
       try {
+        if (searchQuery === null) {
+          return;
+        }
         const fetchedData = await themoviedbApiService(
           fetchParameter,
           searchQuery
@@ -25,6 +26,6 @@ export const useFetchMovies = (fetchParameter, searchQuery) => {
       }
     }
     fetchData();
-  }, []);
+  }, [fetchParameter, searchQuery]);
   return { fetchedMovies, loading, error };
 };

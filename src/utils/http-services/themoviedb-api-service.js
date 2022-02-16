@@ -14,8 +14,8 @@ export const themoviedbApiService = (fetchParameter, searchQuery) => {
         api_key: API_KEY,
         language: DEFAULT_LANGUAGE,
         include_adult: ADULT_CONTENT,
-        append_to_response: APPENDED_MOVIE_DETAILS,
         query: searchQuery,
+        append_to_response: APPENDED_MOVIE_DETAILS,
       },
     })
     .then(({ data }) => {

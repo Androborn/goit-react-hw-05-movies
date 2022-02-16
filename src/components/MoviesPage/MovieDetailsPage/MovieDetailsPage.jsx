@@ -4,6 +4,7 @@ import { Loader } from '../../../vendors';
 import { useFetchMovies } from '../../../hooks';
 
 import noPoster from '../../../images/no_poster.jpg';
+import { GoBackBtn } from 'components/GoBackBtn/GoBackBtn.styled';
 
 export function MovieDetailsPage() {
   const fetchAboutMovie = '/movie';
@@ -16,9 +17,11 @@ export function MovieDetailsPage() {
     fetchAboutMovie + `/${movieId}`
   );
 
+  console.log(error);
+
   return (
     <>
-      <Link to="/">Go back</Link>
+      <GoBackBtn />
       {fetchedMovies && (
         <>
           <img

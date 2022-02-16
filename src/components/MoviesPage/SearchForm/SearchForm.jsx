@@ -1,15 +1,21 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 // import PropTypes from 'prop-types';
 
 import { Form, FormBtn, FormBtnLabel, FormInput } from './SearchForm.styled';
 
-export function SearchForm({ onSubmit }) {
+export function SearchForm() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [, setSearchParams] = useSearchParams();
 
   function handleSearchSubmit(e) {
     e.preventDefault();
 
-    onSubmit(searchQuery.toLowerCase());
+    if (searchQuery === '') {
+      return;
+    }
+    setSearchParams({ query: searchQuery.toLowerCase().trim() });
     resetForm();
   }
 
