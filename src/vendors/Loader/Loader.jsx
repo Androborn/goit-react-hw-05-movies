@@ -1,9 +1,18 @@
 import { Grid } from 'react-loader-spinner';
 
-import { Wrapper } from './Loader.styled';
+import { Wrapper, PageLoader } from './Loader.styled';
 
-export const Loader = () => (
-  <Wrapper>
-    <Grid heigth="30" width="30" color="grey" ariaLabel="loading" />
-  </Wrapper>
-);
+export default function Loader({ fallback }) {
+  return (
+    <Wrapper>
+      {fallback ? (
+        <>
+          <PageLoader />
+          <div>LOADING...</div>
+        </>
+      ) : (
+        <Grid heigth="30" width="30" color="grey" ariaLabel="loading" />
+      )}
+    </Wrapper>
+  );
+}

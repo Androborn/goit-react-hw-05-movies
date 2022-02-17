@@ -4,9 +4,9 @@ import { Loader } from '../../../vendors';
 import { useFetchMovies } from '../../../hooks';
 
 import noPoster from '../../../images/no_poster.jpg';
-import { GoBackBtn } from 'components/GoBackBtn/GoBackBtn.styled';
+import GoBackBtn from '../../GoBackBtn/GoBackBtn.jsx';
 
-export function MovieDetailsPage() {
+export default function MovieDetailsPage() {
   const fetchAboutMovie = '/movie';
   const movieId = useParams().itemId;
   const imgBaseUrl = 'https://image.tmdb.org/t/p';
@@ -18,6 +18,7 @@ export function MovieDetailsPage() {
   );
 
   console.log(error);
+  console.log(fetchedMovies);
 
   return (
     <>

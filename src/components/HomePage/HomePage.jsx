@@ -5,10 +5,12 @@ import { nanoid } from 'nanoid';
 import { Loader } from '../../vendors';
 import { useFetchMovies } from '../../hooks';
 
-export function HomePage() {
+export default function HomePage() {
   const fetchTrendingMovies = '/trending/movie/day';
 
   const { fetchedMovies, loading, error } = useFetchMovies(fetchTrendingMovies);
+
+  console.log(error);
 
   return (
     <>

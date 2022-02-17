@@ -2,7 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 import { Navigation } from './Navigation.styled';
 
-export const Layout = () => {
+export default function Layout() {
   return (
     <>
       <Navigation>
@@ -34,4 +34,4 @@ export const Layout = () => {
       <Outlet />
     </>
   );
-};
+}

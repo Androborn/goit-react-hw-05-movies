@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid';
 
 import noActorPhoto from '../../../images/no_actor_photo.png';
 
-export const Cast = () => {
+export default function Cast() {
   const imgBaseUrl = 'https://image.tmdb.org/t/p';
   const imgSize = '/w200';
   let location = useLocation();
@@ -27,4 +27,4 @@ export const Cast = () => {
       ))}
     </ul>
   );
-};
+}

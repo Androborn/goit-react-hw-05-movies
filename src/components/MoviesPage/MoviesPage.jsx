@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
 import { Loader } from '../../vendors';
 import { useFetchMovies } from '../../hooks';
 
-export const MoviesPage = () => {
+export default function MoviesPage() {
   const [searchParams] = useSearchParams();
 
   const searchedMovies = `search/movie`;
@@ -33,4 +33,4 @@ export const MoviesPage = () => {
       {/* add no search match */}
     </>
   );
-};
+}

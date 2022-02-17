@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { Form, FormBtn, FormBtnLabel, FormInput } from './SearchForm.styled';
 
-export function SearchForm() {
+export default function SearchForm() {
   const [searchQuery, setSearchQuery] = useState('');
   const [, setSearchParams] = useSearchParams();
 

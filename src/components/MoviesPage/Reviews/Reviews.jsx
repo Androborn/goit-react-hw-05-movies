@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 
 import { nanoid } from 'nanoid';
 
-export const Reviews = () => {
+export default function Reviews() {
   let location = useLocation();
 
   console.log(location.state.reviews.results);
@@ -19,4 +19,4 @@ export const Reviews = () => {
       ))}
     </ul>
   );
-};
+}
