@@ -5,4 +5,4 @@ export { default as MoviesPage } from './MoviesPage/MoviesPage.jsx';
 export { default as MovieDetailsPage } from './MoviesPage/MovieDetailsPage/MovieDetailsPage.jsx';
 export { default as Cast } from './MoviesPage/Cast/Cast.jsx';
 export { default as Reviews } from './MoviesPage/Reviews/Reviews.jsx';
-export { default as GoBackBtn } from './GoBackBtn/GoBackBtn.jsx';
+export { default as GoBack } from './GoBack/GoBack.jsx';

@@ -1,5 +1,4 @@
 import { NavLink, Outlet } from 'react-router-dom';
-
 import { Navigation } from './Navigation.styled';
 
 export default function Layout() {

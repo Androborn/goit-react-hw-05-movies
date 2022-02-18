@@ -1,30 +1,42 @@
-import { useLocation } from 'react-router-dom';
-
+import { useOutletContext } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-
 import noActorPhoto from '../../../images/no_actor_photo.png';
+import {
+  NoCast,
+  CastList,
+  ActorInfo,
+  ActorThumb,
+  ActorName,
+  Character,
+} from './Cast.styled';
 
 export default function Cast() {
+  const [
+    {
+      credits: { cast },
+    },
+  ] = useOutletContext();
   const imgBaseUrl = 'https://image.tmdb.org/t/p';
   const imgSize = '/w200';
-  let location = useLocation();
 
-  return (
-    <ul>
-      {location.state.cast.map(actor => (
-        <li key={nanoid()}>
-          <img
+  return cast.length === 0 ? (
+    <NoCast> We don't have cast for this movie</NoCast>
+  ) : (
+    <CastList>
+      {cast?.map(({ profile_path, name, character }) => (
+        <ActorInfo key={nanoid()}>
+          <ActorThumb
             alt="actor"
             src={
-              actor.profile_path
-                ? `${imgBaseUrl}${imgSize}${actor.profile_path}`
+              profile_path
+                ? `${imgBaseUrl}${imgSize}${profile_path}`
                 : noActorPhoto
             }
-          ></img>
-          <div>{actor.name}</div>
-          <div>Character: {actor.character}</div>
-        </li>
+          ></ActorThumb>
+          <ActorName>{name}</ActorName>
+          <Character>Character: {character}</Character>
+        </ActorInfo>
       ))}
-    </ul>
+    </CastList>
   );
 }

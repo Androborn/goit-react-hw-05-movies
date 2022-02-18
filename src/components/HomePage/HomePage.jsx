@@ -1,28 +1,21 @@
-import { Link } from 'react-router-dom';
-
-import { nanoid } from 'nanoid';
-
+import toast, { Toaster } from 'react-hot-toast';
+import MoviesList from '../MoviesList/MoviesList.jsx';
 import { Loader } from '../../vendors';
 import { useFetchMovies } from '../../hooks';
+import { Wrapper, HomePageHeader } from './HomePage.styled.jsx';
 
 export default function HomePage() {
   const fetchTrendingMovies = '/trending/movie/day';
-
   const { fetchedMovies, loading, error } = useFetchMovies(fetchTrendingMovies);
 
-  console.log(error);
+  toast.error(error?.message);
 
   return (
-    <>
-      <ul>
-        {fetchedMovies &&
-          fetchedMovies.results.map(movie => (
-            <li key={nanoid()}>
-              <Link to={`movies/${movie.id}`}>{movie.title}</Link>
-            </li>
-          ))}
-      </ul>
+    <Wrapper>
+      <HomePageHeader>Trending today</HomePageHeader>
+      {error && <Toaster />}
+      <MoviesList fetchedMovies={fetchedMovies} />
       {loading && <Loader />}
-    </>
+    </Wrapper>
   );
 }

@@ -1,9 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
 import Loader from '../vendors/Loader/Loader.jsx';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
 import { Wrapper } from './App.styled';
 
 const Layout = lazy(() => import('./Layout/Layout.jsx'));
@@ -26,8 +24,8 @@ export default function App() {
             <Route path="movies" element={<MoviesPage />}>
               <Route index element={<SearchForm />} />
               <Route path=":itemId" element={<MovieDetailsPage />}>
-                <Route path="cast" element={<Cast></Cast>} />
-                <Route path="reviews" element={<Reviews></Reviews>} />
+                <Route path="cast" element={<Cast />} />
+                <Route path="reviews" element={<Reviews />} />
               </Route>
             </Route>
             <Route path="*" element={<Navigate to="/" />} />

@@ -1,8 +1,5 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
-// import PropTypes from 'prop-types';
-
 import { Form, FormBtn, FormBtnLabel, FormInput } from './SearchForm.styled';
 
 export default function SearchForm() {
@@ -41,7 +38,3 @@ export default function SearchForm() {
     </Form>
   );
 }
-
-// SearchForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };

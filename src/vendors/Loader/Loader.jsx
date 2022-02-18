@@ -1,4 +1,5 @@
 import { Grid } from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 
 import { Wrapper, PageLoader } from './Loader.styled';
 
@@ -16,3 +17,7 @@ export default function Loader({ fallback }) {
     </Wrapper>
   );
 }
+
+Loader.propTypes = {
+  fallback: PropTypes.bool,
+};

@@ -1,22 +1,30 @@
-import { useLocation } from 'react-router-dom';
-
+import { useOutletContext } from 'react-router-dom';
 import { nanoid } from 'nanoid';
+import {
+  ReviewsList,
+  NoReviews,
+  Review,
+  ReviewAuthor,
+  ReviewText,
+} from './Reviews.styled';
 
 export default function Reviews() {
-  let location = useLocation();
+  const [
+    {
+      reviews: { results },
+    },
+  ] = useOutletContext();
 
-  console.log(location.state.reviews.results);
-
-  return location.state.reviews.results.length === 0 ? (
-    <div> We don't have any reviews for this movie</div>
+  return results?.length === 0 ? (
+    <NoReviews> We don't have any reviews for this movie</NoReviews>
   ) : (
-    <ul>
-      {location.state.reviews.results.map(review => (
-        <li key={nanoid()}>
-          <div>Author: {review.author}</div>
-          <div>{review.content}</div>
-        </li>
+    <ReviewsList>
+      {results?.map(({ author, content }) => (
+        <Review key={nanoid()}>
+          <ReviewAuthor>Author: {author}</ReviewAuthor>
+          <ReviewText>{content}</ReviewText>
+        </Review>
       ))}
-    </ul>
+    </ReviewsList>
   );
 }

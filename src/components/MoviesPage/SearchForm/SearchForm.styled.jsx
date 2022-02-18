@@ -8,6 +8,7 @@ export const Form = styled.form`
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
+  border: 1px solid black;
 `;
 export const FormBtn = styled.button`
   display: inline-block;

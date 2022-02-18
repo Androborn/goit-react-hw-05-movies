@@ -1,9 +1,8 @@
-import { Link, Outlet, useSearchParams } from 'react-router-dom';
-
-import { nanoid } from 'nanoid';
-
+import { Outlet, useSearchParams } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import { Loader } from '../../vendors';
 import { useFetchMovies } from '../../hooks';
+import MoviesList from '../MoviesList/MoviesList';
 
 export default function MoviesPage() {
   const [searchParams] = useSearchParams();
@@ -15,22 +14,17 @@ export default function MoviesPage() {
     searchParams.get('query')
   );
 
-  console.log(error);
+  toast.error(error?.message);
 
   return (
     <>
       <Outlet />
-      <ul>
-        {fetchedMovies &&
-          searchParams.get('query') &&
-          fetchedMovies.results.map(movie => (
-            <li key={nanoid()}>
-              <Link to={`${movie.id}`}>{movie.title}</Link>
-            </li>
-          ))}
-      </ul>
+      {error && <Toaster />}
+      {searchParams.get('query') && (
+        <MoviesList fetchedMovies={fetchedMovies} />
+      )}
       {loading && <Loader />}
-      {/* add no search match */}
+      {/* add no search match notification*/}
     </>
   );
 }

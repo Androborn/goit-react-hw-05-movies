@@ -1,48 +1,74 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
-
+import { Outlet, useParams, useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import { Loader } from '../../../vendors';
 import { useFetchMovies } from '../../../hooks';
-
 import noPoster from '../../../images/no_poster.jpg';
-import GoBackBtn from '../../GoBackBtn/GoBackBtn.jsx';
+import GoBack from '../../GoBack/GoBack.jsx';
+import {
+  Wrapper,
+  AboutMovie,
+  MoviePoster,
+  MovieInfo,
+  MovieTitle,
+  MovieScore,
+  MovieOverview,
+  MovieGenres,
+  PageBlockHeader,
+  StyledLink,
+} from './MovieDetailsPage.styled';
 
 export default function MovieDetailsPage() {
   const fetchAboutMovie = '/movie';
-  const movieId = useParams().itemId;
   const imgBaseUrl = 'https://image.tmdb.org/t/p';
-  // const imgSize = '/original';
-  const imgSize = '/w300';
+  const movieId = useParams().itemId;
+  const imgSize = '/original';
 
+  const { state } = useLocation();
   const { fetchedMovies, loading, error } = useFetchMovies(
     fetchAboutMovie + `/${movieId}`
   );
+  const { poster_path, title, release_date, vote_average, overview, genres } =
+    fetchedMovies || {};
 
-  console.log(error);
-  console.log(fetchedMovies);
+  toast.error(error?.message);
 
   return (
     <>
-      <GoBackBtn />
+      <GoBack to={state?.from ?? '/'} />
+      {error && <Toaster />}
       {fetchedMovies && (
-        <>
-          <img
-            alt="movie poster"
-            src={
-              fetchedMovies.poster_path
-                ? `${imgBaseUrl}${imgSize}${fetchedMovies.poster_path}`
-                : noPoster
-            }
-          />
-          <div>{fetchedMovies.title}</div>
-          <div>{fetchedMovies.overview}</div>
-          <Link to="cast" state={{ cast: fetchedMovies.credits.cast }}>
+        <Wrapper>
+          <AboutMovie>
+            <MoviePoster
+              alt="movie poster"
+              src={
+                poster_path ? `${imgBaseUrl}${imgSize}${poster_path}` : noPoster
+              }
+            />
+            <MovieInfo>
+              <MovieTitle>
+                {title} ({release_date.substring(0, 4)})
+              </MovieTitle>
+              <MovieScore>User score: {vote_average * 10} %</MovieScore>
+              <PageBlockHeader>Overview</PageBlockHeader>
+              <MovieOverview>{overview}</MovieOverview>
+              <PageBlockHeader>Genres</PageBlockHeader>
+              <MovieGenres>
+                {genres.map(({ name }) => name).join(' ')}
+              </MovieGenres>
+            </MovieInfo>
+          </AboutMovie>
+          <hr />
+          <PageBlockHeader>Additional information</PageBlockHeader>
+          <StyledLink to="cast" state={{ from: state?.from }}>
             Cast
-          </Link>
-          <Link to="reviews" state={{ reviews: fetchedMovies.reviews }}>
+          </StyledLink>
+          <StyledLink to="reviews" state={{ from: state?.from }}>
             Reviews
-          </Link>
-          <Outlet />
-        </>
+          </StyledLink>
+          <hr />
+          <Outlet context={[fetchedMovies]} />
+        </Wrapper>
       )}
       {loading && <Loader />}
     </>
