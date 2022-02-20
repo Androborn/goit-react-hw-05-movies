@@ -2,16 +2,16 @@ import { Outlet, useSearchParams } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { Loader } from '../../vendors';
 import { useFetchMovies } from '../../hooks';
-import MoviesList from '../MoviesList/MoviesList';
+import MoviesList from '../../components/MoviesList/MoviesList';
 
 export default function MoviesPage() {
   const [searchParams] = useSearchParams();
-
-  const searchedMovies = `search/movie`;
+  const searchQuery = searchParams.get('query');
+  const fetchParams = `search/movie`;
 
   const { fetchedMovies, loading, error } = useFetchMovies(
-    searchedMovies,
-    searchParams.get('query')
+    fetchParams,
+    searchQuery
   );
 
   toast.error(error?.message);
@@ -20,9 +20,7 @@ export default function MoviesPage() {
     <>
       <Outlet />
       {error && <Toaster />}
-      {searchParams.get('query') && (
-        <MoviesList fetchedMovies={fetchedMovies} />
-      )}
+      {searchQuery && <MoviesList fetchedMovies={fetchedMovies} />}
       {loading && <Loader />}
       {/* add no search match notification*/}
     </>

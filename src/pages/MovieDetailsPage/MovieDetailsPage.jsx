@@ -1,9 +1,9 @@
 import { Outlet, useParams, useLocation } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
-import { Loader } from '../../../vendors';
-import { useFetchMovies } from '../../../hooks';
-import noPoster from '../../../images/no_poster.jpg';
-import GoBack from '../../GoBack/GoBack.jsx';
+import { Loader } from '../../vendors';
+import { useFetchMovies } from '../../hooks';
+import noPoster from '../../images/no_poster.jpg';
+import GoBack from '../../components/GoBack/GoBack.jsx';
 import {
   Wrapper,
   AboutMovie,
@@ -18,14 +18,14 @@ import {
 } from './MovieDetailsPage.styled';
 
 export default function MovieDetailsPage() {
-  const fetchAboutMovie = '/movie';
+  const fetchParams = 'movie/';
   const imgBaseUrl = 'https://image.tmdb.org/t/p';
-  const movieId = useParams().itemId;
+  const movieId = useParams().slug.match(/[a-z0-9]+$/);
   const imgSize = '/original';
 
   const { state } = useLocation();
   const { fetchedMovies, loading, error } = useFetchMovies(
-    fetchAboutMovie + `/${movieId}`
+    `${fetchParams}${movieId}`
   );
   const { poster_path, title, release_date, vote_average, overview, genres } =
     fetchedMovies || {};
@@ -34,7 +34,11 @@ export default function MovieDetailsPage() {
 
   return (
     <>
-      <GoBack to={state?.from ?? '/'} />
+      <GoBack to={state?.from ?? '/'}>
+        {state?.from?.pathname === '/movies/'
+          ? 'Back to searched movies list'
+          : 'Back to Home page'}
+      </GoBack>
       {error && <Toaster />}
       {fetchedMovies && (
         <Wrapper>
@@ -60,10 +64,10 @@ export default function MovieDetailsPage() {
           </AboutMovie>
           <hr />
           <PageBlockHeader>Additional information</PageBlockHeader>
-          <StyledLink to="cast" state={{ from: state?.from }}>
+          <StyledLink to="cast" state={{ from: state?.from ?? '/' }}>
             Cast
           </StyledLink>
-          <StyledLink to="reviews" state={{ from: state?.from }}>
+          <StyledLink to="reviews" state={{ from: state?.from ?? '/' }}>
             Reviews
           </StyledLink>
           <hr />

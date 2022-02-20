@@ -1,12 +1,12 @@
 import toast, { Toaster } from 'react-hot-toast';
-import MoviesList from '../MoviesList/MoviesList.jsx';
+import MoviesList from '../../components/MoviesList/MoviesList.jsx';
 import { Loader } from '../../vendors';
 import { useFetchMovies } from '../../hooks';
 import { Wrapper, HomePageHeader } from './HomePage.styled.jsx';
 
 export default function HomePage() {
-  const fetchTrendingMovies = '/trending/movie/day';
-  const { fetchedMovies, loading, error } = useFetchMovies(fetchTrendingMovies);
+  const fetchParams = '/trending/movie/day';
+  const { fetchedMovies, loading, error } = useFetchMovies(fetchParams);
 
   toast.error(error?.message);
 

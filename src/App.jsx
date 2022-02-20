@@ -1,18 +1,22 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Loader from '../vendors/Loader/Loader.jsx';
+import Loader from './vendors/Loader/Loader.jsx';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { Wrapper } from './App.styled';
 
-const Layout = lazy(() => import('./Layout/Layout.jsx'));
-const HomePage = lazy(() => import('./HomePage/HomePage.jsx'));
-const MoviesPage = lazy(() => import('./MoviesPage/MoviesPage.jsx'));
-const SearchForm = lazy(() => import('./MoviesPage/SearchForm/SearchForm.jsx'));
+// import static to prevent interface blinking
+import Cast from './components/Cast/Cast';
+import Reviews from './components/Reviews/Reviews';
+// const Cast = lazy(() => import('./MoviesPage/Cast/Cast.jsx'));
+// const Reviews = lazy(() => import('./MoviesPage/Reviews/Reviews.jsx'));
+
+const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+const MoviesPage = lazy(() => import('./pages/MoviesPage/MoviesPage'));
 const MovieDetailsPage = lazy(() =>
-  import('./MoviesPage/MovieDetailsPage/MovieDetailsPage.jsx')
+  import('./pages/MovieDetailsPage/MovieDetailsPage')
 );
-const Cast = lazy(() => import('./MoviesPage/Cast/Cast.jsx'));
-const Reviews = lazy(() => import('./MoviesPage/Reviews/Reviews.jsx'));
+const Layout = lazy(() => import('./components/Layout/Layout.jsx'));
+const SearchForm = lazy(() => import('./components/SearchForm/SearchForm.jsx'));
 
 export default function App() {
   return (
@@ -23,7 +27,7 @@ export default function App() {
             <Route index element={<HomePage />} />
             <Route path="movies" element={<MoviesPage />}>
               <Route index element={<SearchForm />} />
-              <Route path=":itemId" element={<MovieDetailsPage />}>
+              <Route path=":slug" element={<MovieDetailsPage />}>
                 <Route path="cast" element={<Cast />} />
                 <Route path="reviews" element={<Reviews />} />
               </Route>

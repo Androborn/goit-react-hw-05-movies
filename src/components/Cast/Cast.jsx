@@ -1,6 +1,6 @@
 import { useOutletContext } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import noActorPhoto from '../../../images/no_actor_photo.png';
+import noActorPhoto from '../../images/no_actor_photo.png';
 import {
   NoCast,
   CastList,
